@@ -3,6 +3,8 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { AppInput } from "../components/AppInput";
+import { AppTransactions } from "../components/AppTransactions";
+import { AppBalance } from "../components/AppBalance";
 import useWalletConnect from "../hooks/useWalletConnect";
 import { formatEther } from "../utils/helpers";
 
@@ -47,6 +49,16 @@ const Home: NextPage = () => {
     }
   };
 
+  if (network !== 4) {
+    return (
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <h1 className="text-2xl font-bold text-center sm:text-left w-full">
+          Please, select Rinkeby testnet to get started.
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4">
       <AppHeader
@@ -65,38 +77,7 @@ const Home: NextPage = () => {
               Withdraw from Contract
             </button>
           </div>
-          {balance && (
-            <table className="text-xl font-bold">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>ETH</th>
-                </tr>
-              </thead>
-              <tbody>
-                {balance && (
-                  <tr>
-                    <td className="pr-4">
-                      <h2>Your Wallet Balance: </h2>
-                    </td>
-                    <td>
-                      <h2>{formatEther(balance)}</h2>
-                    </td>
-                  </tr>
-                )}
-                {contractBalance && (
-                  <tr>
-                    <td className="pr-4">
-                      <h2> Your Contract Balance: </h2>
-                    </td>
-                    <td>
-                      <h2>{formatEther(contractBalance as BigNumber)}</h2>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
+          <AppBalance balance={balance} contractBalance={contractBalance} />
           <div className="border-2 p-4 rounded-md w-96 flex flex-col justify-center gap-4">
             <AppInput
               value={eth2Send}
@@ -116,32 +97,7 @@ const Home: NextPage = () => {
               Send
             </button>
           </div>
-          {transactions.length > 0 && (
-            <div className="border-2 p-4 rounded-md w-96 flex flex-col justify-center gap-4">
-              <h3 className="text-md font-bold">Transactions:</h3>
-              <div className="flex flex-col gap-2">
-                {transactions.map((transaction) => (
-                  <div
-                    key={transaction.hash}
-                    className="flex justify-between border-b-2"
-                  >
-                    <div>{transaction.nonce}</div>
-                    <div>
-                      <a
-                        href={`https://rinkeby.etherscan.io/tx/${transaction.hash}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-800"
-                      >
-                        View transaction
-                      </a>
-                    </div>
-                    <div>Value: {formatEther(transaction.value)}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <AppTransactions transactions={transactions} />
         </div>
       </div>
     </div>

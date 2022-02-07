@@ -5,13 +5,13 @@ export const AppHeader: React.FC<{
   connectToMetamask: any;
 }> = ({ account, isConnected, disconnect, connectToMetamask }) => {
   return (
-    <div className="flex flex-col gap-4 items-end sm:flex-row sm:gap-0 ">
-      <div className="flex-grow">
+    <div className="flex flex-col gap-4 sm:flex-row sm:gap-0 items-center justify-between">
+      <div className="">
         <h1 className="text-3xl font-bold text-center sm:text-left">
           NextJS+Hardhat PullPayment Example
         </h1>
       </div>
-      <div className="flex-shrink">
+      <div>
         {isConnected() && (
           <div className="flex items-center justify-between gap-4">
             <h2 className="text-xl font-bold">
