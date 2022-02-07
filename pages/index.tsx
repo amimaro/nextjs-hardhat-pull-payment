@@ -48,7 +48,7 @@ const Home: NextPage = () => {
     }
   };
 
-  if (network !== 4) {
+  if (network !== 4 && network !== null) {
     return (
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <h1 className="text-2xl font-bold text-center sm:text-left w-full">
