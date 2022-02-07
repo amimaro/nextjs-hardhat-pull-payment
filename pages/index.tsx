@@ -1,14 +1,13 @@
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { AppHeader } from "../components/AppHeader";
 import { AppInput } from "../components/AppInput";
-import { AppContext } from "../contexts/AppContext";
+import useWalletConnect from "../hooks/useWalletConnect";
 import { formatEther } from "../utils/helpers";
 
 const Home: NextPage = () => {
   const {
-    provider,
     account,
     network,
     balance,
@@ -18,8 +17,7 @@ const Home: NextPage = () => {
     isConnected,
     connectToMetamask,
     disconnect,
-    updateBalance,
-  } = useContext(AppContext);
+  } = useWalletConnect();
 
   const [eth2Send, setEth2Send] = useState<number>(0);
   const [transactions, setTransactions] = useState<
