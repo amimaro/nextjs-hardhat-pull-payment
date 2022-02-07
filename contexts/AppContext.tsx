@@ -10,7 +10,7 @@ export const AppContext = React.createContext<{
   isConnected: () => boolean;
   connectToMetamask: () => Promise<any> | void;
   disconnect: () => void;
-  updateBalance: () => Promise<any> | void;
+  updateBalance: (address: string) => Promise<any> | void;
 }>({
   provider: null,
   signer: null,

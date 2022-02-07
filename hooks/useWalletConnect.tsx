@@ -21,6 +21,7 @@ export default function useWalletConnect() {
 
   const handleAccountsChanged = (accounts: string[]) => {
     setAccount(accounts.length === 0 ? null : accounts[0]);
+    updateBalance(accounts[0]);
   };
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export default function useWalletConnect() {
       const signer = provider!.getSigner();
       setAccount(accounts[0]);
       setSigner(signer);
-      updateBalance();
+      await updateBalance(accounts[0]);
     } catch (error: any) {
       if (error.code === 4001) {
         // EIP-1193 userRejectedRequest error
@@ -101,9 +102,13 @@ export default function useWalletConnect() {
     return !!signer;
   };
 
-  const updateBalance = async () => {
-    const balanceBN = await provider?.getBalance(account + "");
-    setBalance(balanceBN?.toString() + "");
+  const updateBalance = async (address: string) => {
+    const balanceBN = await provider?.getBalance(address);
+    if (!!balanceBN) {
+      setBalance(
+        (+ethers.utils.formatEther(balanceBN?.toString() + "")).toFixed(4)
+      );
+    }
   };
 
   return {
