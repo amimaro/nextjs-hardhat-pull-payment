@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import React from "react";
 
 export const AppContext = React.createContext<{
@@ -6,7 +6,8 @@ export const AppContext = React.createContext<{
   signer: ethers.providers.JsonRpcSigner | null;
   account: string | null;
   network: number | null;
-  balance: string | null;
+  balance: BigNumber | null;
+  contract: ethers.Contract | null;
   isConnected: () => boolean;
   connectToMetamask: () => Promise<any> | void;
   disconnect: () => void;
@@ -17,6 +18,7 @@ export const AppContext = React.createContext<{
   account: null,
   network: null,
   balance: null,
+  contract: null,
   isConnected: () => false,
   connectToMetamask: () => {},
   disconnect: () => {},

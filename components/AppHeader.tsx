@@ -5,7 +5,7 @@ export const AppHeader: React.FC<{
   connectToMetamask: any;
 }> = ({ account, isConnected, disconnect, connectToMetamask }) => {
   return (
-    <div className="flex p-4">
+    <div className="flex">
       <div className="flex-grow">
         <h1 className="text-3xl font-bold">
           NextJS+Hardhat PullPayment Example

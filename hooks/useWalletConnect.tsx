@@ -1,5 +1,6 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useState, useEffect } from "react";
+import PaymentManager from "../PaymentManager.json";
 
 export default function useWalletConnect() {
   const [provider, setProvider] =
@@ -9,7 +10,8 @@ export default function useWalletConnect() {
   );
   const [account, setAccount] = useState<string | null>(null);
   const [network, setNetwork] = useState<number | null>(null);
-  const [balance, setBalance] = useState<string | null>(null);
+  const [balance, setBalance] = useState<BigNumber | null>(null);
+  const [contract, setContract] = useState<ethers.Contract | null>(null);
 
   const fetchSelectedNetwork = async () => {
     return (window as any).ethereum.request({ method: "eth_chainId" });
@@ -81,6 +83,13 @@ export default function useWalletConnect() {
       setAccount(accounts[0]);
       setSigner(signer);
       await updateBalance(accounts[0]);
+      setContract(
+        new ethers.Contract(
+          process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "",
+          PaymentManager.abi,
+          signer
+        )
+      );
     } catch (error: any) {
       if (error.code === 4001) {
         // EIP-1193 userRejectedRequest error
@@ -105,9 +114,7 @@ export default function useWalletConnect() {
   const updateBalance = async (address: string) => {
     const balanceBN = await provider?.getBalance(address);
     if (!!balanceBN) {
-      setBalance(
-        (+ethers.utils.formatEther(balanceBN?.toString() + "")).toFixed(4)
-      );
+      setBalance(balanceBN);
     }
   };
 
@@ -117,6 +124,7 @@ export default function useWalletConnect() {
     account,
     network,
     balance,
+    contract,
     isConnected,
     connectToMetamask,
     disconnect,
