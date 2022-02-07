@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 
 const Home: NextPage = () => {
-  const { account, network, isConnected, ethersConnectToMetamask, disconnect } =
+  const { account, network, isConnected, connectToMetamask, disconnect } =
     useContext(AppContext);
 
   return (
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
       {!isConnected() && (
         <button
           className="px-4 py-2 rounded-md bg-orange-500 text-white font-bold"
-          onClick={() => ethersConnectToMetamask()}
+          onClick={() => connectToMetamask()}
         >
           Connect to metamask
         </button>

@@ -68,7 +68,7 @@ export default function useWalletConnect() {
     };
   }, []);
 
-  const ethersConnectToMetamask = async () => {
+  const connectToMetamask = async () => {
     try {
       const accounts = await (window as any).ethereum.request({
         method: "eth_requestAccounts",
@@ -105,7 +105,7 @@ export default function useWalletConnect() {
     account,
     network,
     isConnected,
-    ethersConnectToMetamask,
+    connectToMetamask,
     disconnect,
   };
 }

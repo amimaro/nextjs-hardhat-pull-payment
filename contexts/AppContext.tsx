@@ -7,7 +7,7 @@ export const AppContext = React.createContext<{
   account: string | null;
   network: number | null;
   isConnected: () => boolean;
-  ethersConnectToMetamask: () => Promise<any> | void;
+  connectToMetamask: () => Promise<any> | void;
   disconnect: () => void;
 }>({
   provider: null,
@@ -15,6 +15,6 @@ export const AppContext = React.createContext<{
   account: null,
   network: null,
   isConnected: () => false,
-  ethersConnectToMetamask: () => {},
+  connectToMetamask: () => {},
   disconnect: () => {},
 });
