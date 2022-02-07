@@ -26,7 +26,15 @@ const Home: NextPage = () => {
     ethers.providers.TransactionResponse[]
   >([]);
 
-  const withdraw = async () => {};
+  const withdraw = async () => {
+    try {
+      const tx = await contract?.withdrawPayments(account);
+      transactions.push(tx as ethers.providers.TransactionResponse);
+      setTransactions(transactions);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const sendEthers = async () => {
     try {
@@ -35,7 +43,6 @@ const Home: NextPage = () => {
         value: ethers.utils.parseEther(eth2Send + ""),
       });
       transactions.push(tx as ethers.providers.TransactionResponse);
-      console.log(transactions);
       setTransactions(transactions);
     } catch (error) {
       console.error(error);

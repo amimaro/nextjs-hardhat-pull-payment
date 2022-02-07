@@ -5,15 +5,15 @@ export const AppHeader: React.FC<{
   connectToMetamask: any;
 }> = ({ account, isConnected, disconnect, connectToMetamask }) => {
   return (
-    <div className="flex flex-col gap-4 items-end sm:flex-row sm:gap-0">
+    <div className="flex flex-col gap-4 items-end sm:flex-row sm:gap-0 ">
       <div className="flex-grow">
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-center sm:text-left">
           NextJS+Hardhat PullPayment Example
         </h1>
       </div>
       <div className="flex-shrink">
         {isConnected() && (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between gap-4">
             <h2 className="text-xl font-bold">
               {account?.substring(0, 5)}...
               {account?.substring(account.length - 4)}

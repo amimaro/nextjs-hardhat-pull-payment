@@ -80,6 +80,7 @@ export default function useWalletConnect() {
     const balanceInterval = setInterval(async () => {
       if (!contract || !account) return;
       const balanceBN = await contract?.payments(account);
+      await updateBalance(account);
       setContractBalance(balanceBN);
     }, 1000);
 
