@@ -19,7 +19,7 @@ export const AppHeader: React.FC<{
               {account?.substring(account.length - 4)}
             </h2>
             <button
-              className="px-4 py-2 rounded-md bg-gray-500 text-white font-bold"
+              className="px-4 py-2 rounded-md bg-gray-500 active:bg-gray-600 text-white font-bold shadow-md"
               onClick={() => disconnect()}
             >
               Disconnect
@@ -28,7 +28,7 @@ export const AppHeader: React.FC<{
         )}
         {!isConnected() && (
           <button
-            className="px-4 py-2 rounded-md bg-orange-500 text-white font-bold"
+            className="px-4 py-2 rounded-md bg-orange-500 active:bg-orange-600 text-white font-bold shadow-md"
             onClick={() => connectToMetamask()}
           >
             Connect to metamask

@@ -11,6 +11,9 @@ export default function useWalletConnect() {
   const [account, setAccount] = useState<string | null>(null);
   const [network, setNetwork] = useState<number | null>(null);
   const [balance, setBalance] = useState<BigNumber | null>(null);
+  const [contractBalance, setContractBalance] = useState<BigNumber | null>(
+    null
+  );
   const [contract, setContract] = useState<ethers.Contract | null>(null);
 
   const fetchSelectedNetwork = async () => {
@@ -55,6 +58,7 @@ export default function useWalletConnect() {
       /* Handle user accounts and accountsChanged (per EIP-1193) */
       /***********************************************************/
       const accounts = await ethereum.request({ method: "eth_accounts" });
+      setAccount(accounts.length === 0 ? null : accounts[0]);
       handleAccountsChanged(accounts);
       ethereum.on("accountsChanged", handleAccountsChanged);
     };
@@ -71,6 +75,18 @@ export default function useWalletConnect() {
       );
     };
   }, []);
+
+  useEffect(() => {
+    const balanceInterval = setInterval(async () => {
+      if (!contract || !account) return;
+      const balanceBN = await contract?.payments(account);
+      setContractBalance(balanceBN);
+    }, 1000);
+
+    return () => {
+      clearInterval(balanceInterval);
+    };
+  }, [contract, account]);
 
   const connectToMetamask = async () => {
     try {
@@ -105,6 +121,9 @@ export default function useWalletConnect() {
     setSigner(null);
     setAccount(null);
     setNetwork(null);
+    setContract(null);
+    setBalance(null);
+    setContractBalance(null);
   };
 
   const isConnected = () => {
@@ -124,6 +143,7 @@ export default function useWalletConnect() {
     account,
     network,
     balance,
+    contractBalance,
     contract,
     isConnected,
     connectToMetamask,
