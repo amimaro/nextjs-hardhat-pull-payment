@@ -2,6 +2,8 @@
 
 This is a simple project to interact with PullPayment contract pattern deployed on Rinkeby testnet.
 
+![demonstration](./demo.gif)
+
 ## Getting Started
 
 First, run the development server:
