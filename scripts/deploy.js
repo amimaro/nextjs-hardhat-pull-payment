@@ -15,7 +15,7 @@ async function main() {
 
   // We get the contract to deploy
   const PaymentManager = await hre.ethers.getContractFactory("PaymentManager");
-  const paymentManager = await PaymentManager.deploy("Hello, Hardhat!");
+  const paymentManager = await PaymentManager.deploy();
 
   await paymentManager.deployed();
 
