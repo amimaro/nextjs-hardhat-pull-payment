@@ -9,6 +9,7 @@ export default function useWalletConnect() {
   );
   const [account, setAccount] = useState<string | null>(null);
   const [network, setNetwork] = useState<number | null>(null);
+  const [balance, setBalance] = useState<string | null>(null);
 
   const fetchSelectedNetwork = async () => {
     return (window as any).ethereum.request({ method: "eth_chainId" });
@@ -78,6 +79,7 @@ export default function useWalletConnect() {
       const signer = provider!.getSigner();
       setAccount(accounts[0]);
       setSigner(signer);
+      updateBalance();
     } catch (error: any) {
       if (error.code === 4001) {
         // EIP-1193 userRejectedRequest error
@@ -99,13 +101,20 @@ export default function useWalletConnect() {
     return !!signer;
   };
 
+  const updateBalance = async () => {
+    const balanceBN = await provider?.getBalance(account + "");
+    setBalance(balanceBN?.toString() + "");
+  };
+
   return {
     provider,
     signer,
     account,
     network,
+    balance,
     isConnected,
     connectToMetamask,
     disconnect,
+    updateBalance,
   };
 }

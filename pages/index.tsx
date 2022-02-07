@@ -3,8 +3,15 @@ import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 
 const Home: NextPage = () => {
-  const { account, network, isConnected, connectToMetamask, disconnect } =
-    useContext(AppContext);
+  const {
+    account,
+    network,
+    balance,
+    isConnected,
+    connectToMetamask,
+    disconnect,
+    updateBalance,
+  } = useContext(AppContext);
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
