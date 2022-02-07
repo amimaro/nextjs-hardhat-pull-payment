@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { AppHeader } from "../components/AppHeader";
@@ -6,7 +6,6 @@ import { AppInput } from "../components/AppInput";
 import { AppTransactions } from "../components/AppTransactions";
 import { AppBalance } from "../components/AppBalance";
 import useWalletConnect from "../hooks/useWalletConnect";
-import { formatEther } from "../utils/helpers";
 
 const Home: NextPage = () => {
   const {
@@ -60,7 +59,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-full">
       <AppHeader
         account={account + ""}
         isConnected={isConnected}
@@ -99,6 +98,20 @@ const Home: NextPage = () => {
           </div>
           <AppTransactions transactions={transactions} />
         </div>
+      </div>
+      <div className="text-center" style={{ position: "sticky", top: "100vh" }}>
+        Contract address:{" "}
+        <a
+          href={`https://rinkeby.etherscan.io/address/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-900 font-bold"
+        >
+          {process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.substring(0, 5)}...
+          {process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.substring(
+            process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.length - 4
+          )}
+        </a>
       </div>
     </div>
   );
