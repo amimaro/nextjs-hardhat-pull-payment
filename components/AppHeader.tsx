@@ -15,7 +15,8 @@ export const AppHeader: React.FC<{
         {isConnected() && (
           <div className="flex items-center gap-4">
             <h2 className="text-xl font-bold">
-              0x...{account?.substring(account.length - 4)}
+              {account?.substring(0, 5)}...
+              {account?.substring(account.length - 4)}
             </h2>
             <button
               className="px-4 py-2 rounded-md bg-gray-500 text-white font-bold"
