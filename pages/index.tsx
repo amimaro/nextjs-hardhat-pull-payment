@@ -100,18 +100,32 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="text-center" style={{ position: "sticky", top: "100vh" }}>
-        Contract address:{" "}
-        <a
-          href={`https://rinkeby.etherscan.io/address/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-900 font-bold"
-        >
-          {process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.substring(0, 5)}...
-          {process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.substring(
-            process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.length - 4
-          )}
-        </a>
+        <div className="flex flex-col">
+          <div>
+            <a
+              href="https://github.com/amimaro/nextjs-hardhat-pull-payment"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-900 font-bold"
+            >
+              Github Repo
+            </a>
+          </div>
+          <div>
+            Contract address:{" "}
+            <a
+              href={`https://rinkeby.etherscan.io/address/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-900 font-bold"
+            >
+              {process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.substring(0, 5)}...
+              {process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.substring(
+                process.env.NEXT_PUBLIC_CONTRACT_ADDRESS?.length - 4
+              )}
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
